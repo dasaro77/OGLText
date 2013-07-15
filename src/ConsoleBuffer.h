@@ -11,7 +11,7 @@
 #include <string>
 #include <deque>
 
-#include "IOutputer.h"
+#include "outputers/IOutputer.h"
 
 using std::string;
 using std::deque;

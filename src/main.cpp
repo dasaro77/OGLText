@@ -5,7 +5,7 @@
 #include <string>
 #include <deque>
 
-#include "QTextOutputer.h"
+#include "outputers/QTextOutputer.h"
 #include "ConsoleBuffer.h"
 
 #define window_width  500
