@@ -10,6 +10,7 @@ RM := rm -rf
 -include sources.mk
 -include src/outputers/subdir.mk
 -include src/key_handlers/subdir.mk
+-include src/console/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk

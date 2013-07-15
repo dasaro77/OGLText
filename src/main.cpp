@@ -6,7 +6,7 @@
 #include <deque>
 
 #include "outputers/QTextOutputer.h"
-#include "ConsoleBuffer.h"
+#include "console/ConsoleBuffer.h"
 #include "key_handlers/ConsoleKeyHandler.h"
 
 #define WINDOW_WIDTH  500

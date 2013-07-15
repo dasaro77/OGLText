@@ -26,4 +26,5 @@ SUBDIRS := \
 src \
 src/outputers \
 src/key_handlers \
+src/console \
 

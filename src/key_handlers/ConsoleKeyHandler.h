@@ -9,7 +9,7 @@
 #define CONSOLEKEYHANDLER_H_
 
 #include "IKeyHandler.h"
-#include "ConsoleBuffer.h"
+#include "console/ConsoleBuffer.h"
 
 class ConsoleKeyHandler : public IKeyHandler {
 
