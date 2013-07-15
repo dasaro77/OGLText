@@ -15,7 +15,9 @@ using std::string;
 class IOutputer {
 
 public:
+
   IOutputer() {}
+  virtual ~IOutputer() {}
 
   virtual void output(size_t index, string* str)=0;
 

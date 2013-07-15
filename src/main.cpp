@@ -7,12 +7,14 @@
 
 #include "outputers/QTextOutputer.h"
 #include "ConsoleBuffer.h"
+#include "key_handlers/ConsoleKeyHandler.h"
 
-#define window_width  500
-#define window_height 250
+#define WINDOW_WIDTH  500
+#define WINDOW_HEIGHT 250
 
 QTextOutputer outputer(-225, 70, -20);
 ConsoleBuffer consoleBuffer(&outputer, 10);
+ConsoleKeyHandler consoleKeyHandler(&consoleBuffer);
 
 // Main loop
 void mainLoopFunction() {
@@ -29,39 +31,9 @@ void mainLoopFunction() {
 void handleKeyboard(unsigned char key, int x, int y) {
 #pragma unused (x, y)
 
-  switch (key) {
-
-  // Escape quits the app
-  case 27:
-    exit(1);
-    break;
-
-  // Return key
-  case 13:
-    consoleBuffer.newLine();
-    break;
-
-  // Backspace
-  case 127:
-    consoleBuffer.deleteBackwardFromCurrentLine();
-    break;
-
-  // Delete
-  case 8:
-    consoleBuffer.deleteForwardFromCurrentLine();
-    break;
-
-  default:
-    if(isalnum(key) || key == ' ') {
-      consoleBuffer.addToEndOfCurrentLine(key);
-      break;
-    }
-
-    // Otherwise don't invalidate if not a valid key
-    return;
+  if(consoleKeyHandler.handleKey(key)) {
+    glutPostRedisplay();
   }
-
-  glutPostRedisplay();
 }
 
 void handleReshape(int w, int h) {
@@ -96,7 +68,7 @@ void handleReshape(int w, int h) {
 // Initialize GLUT and start main loop
 int main(int argc, char** argv) {
   glutInit(&argc, argv);
-  glutInitWindowSize(window_width, window_height);
+  glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
   glutCreateWindow("OGL Text Examples");
 
