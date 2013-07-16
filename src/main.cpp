@@ -57,6 +57,9 @@ void handleKeyboard(unsigned char key, int x, int y) {
   }
 }
 
+/* Note that this results with an origin in the center of the screen.  Not sure that
+ * I'm too wild about this so that might change in the future.
+ */
 void handleReshape(int width, int height) {
   GLdouble size;
   GLdouble aspect;
