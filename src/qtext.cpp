@@ -16,7 +16,8 @@ void printString(const char* s) {
 
 void printStrokeString(GLfloat x, GLfloat y, const char* toPrint) {
   if(toPrint && strlen(toPrint)) {
-    glColor4f(0.0, 1.0, 0.0, 0.0);
+    glColor3f(0.0, 1.0, 0.0);
+    glLineWidth(1.0);
 
     GLfloat yild = 20.0;
     GLfloat strokeScale = 0.1f;

@@ -1,3 +1,13 @@
+/*
+ * TODO list
+ * - Line wrapping on current input buffer
+ * - Response lines for each line of input after CR
+ * - Abstract out concept of a text box (location, dimension, styling)
+ * - Non-input debug text box
+ * - Coordinates at cursor w/ non-input debug text box
+ * - Better / alternative build method instead of eclipse maintained makefiles
+ */
+
 #include <gl/gl.h>
 #include <gl/glu.h>
 #include <gl/glut.h>
@@ -5,6 +15,7 @@
 #include <string>
 #include <deque>
 
+#include "drawing/DrawingContext.h"
 #include "outputers/QTextOutputer.h"
 #include "console/ConsoleBuffer.h"
 #include "key_handlers/ConsoleKeyHandler.h"
@@ -12,17 +23,27 @@
 #define WINDOW_WIDTH  500
 #define WINDOW_HEIGHT 250
 
+DrawingContext context;
 QTextOutputer outputer(-225, 70, -20);
-ConsoleBuffer consoleBuffer(&outputer, 10);
+ConsoleBuffer consoleBuffer(&outputer, 11);
 ConsoleKeyHandler consoleKeyHandler(&consoleBuffer);
 
-// Main loop
-void mainLoopFunction() {
+void handleDisplay() {
   // Clear the window
   glClearColor(0.0, 0.0, 0.0, 0.0);
   glClear(GL_COLOR_BUFFER_BIT);
 
+  // Draw border and background of the console
+  glPushMatrix();
+  context.setLine(2, 1, 0, 0);
+  context.setFill(0.25, 0, 0);
+  context.drawRectangleFilledWithBorder(-240, 120, 480, 240);
+  glPopMatrix();
+
+  // Draw the text content of the console
+  glPushMatrix();
   consoleBuffer.output();
+  glPopMatrix();
 
   // Swap buffers (color buffers, makes previous render visible)
   glutSwapBuffers();
@@ -36,22 +57,22 @@ void handleKeyboard(unsigned char key, int x, int y) {
   }
 }
 
-void handleReshape(int w, int h) {
+void handleReshape(int width, int height) {
   GLdouble size;
   GLdouble aspect;
 
   /* Use the whole window. */
-  glViewport(0, 0, w, h);
+  glViewport(0, 0, width, height);
 
   /* We are going to do some 2-D orthographic drawing. */
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  size = (GLdouble) ((w >= h) ? w : h) / 2.0;
-  if (w <= h) {
-    aspect = (GLdouble) h / (GLdouble) w;
+  size = (GLdouble) ((width >= height) ? width : height) / 2.0;
+  if (width <= height) {
+    aspect = (GLdouble) height / (GLdouble) width;
     glOrtho(-size, size, -size * aspect, size * aspect, -100000.0, 100000.0);
   } else {
-    aspect = (GLdouble) w / (GLdouble) h;
+    aspect = (GLdouble) width / (GLdouble) height;
     glOrtho(-size * aspect, size * aspect, -size, size, -100000.0, 100000.0);
   }
 
@@ -65,14 +86,13 @@ void handleReshape(int w, int h) {
 
 }
 
-// Initialize GLUT and start main loop
 int main(int argc, char** argv) {
   glutInit(&argc, argv);
   glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
-  glutCreateWindow("OGL Text Examples");
+  glutCreateWindow("OGL Console Sandbox");
 
-  glutDisplayFunc(mainLoopFunction);
+  glutDisplayFunc(handleDisplay);
   glutKeyboardFunc(handleKeyboard);
   glutReshapeFunc(handleReshape);
 

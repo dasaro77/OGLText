@@ -9,7 +9,7 @@
 
 ConsoleBuffer::ConsoleBuffer(IOutputer* outputer, unsigned maxSize) {
   this->outputer = outputer;
-  this->maxSize = 10;
+  this->maxSize = maxSize;
 }
 
 ConsoleBuffer::~ConsoleBuffer() {
