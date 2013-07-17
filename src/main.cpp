@@ -2,11 +2,9 @@
  * TODO list
  * - Line wrapping on current input buffer
  * - Response lines for each line of input after CR
- * - Abstract out concept of a text box (location, dimension, styling)
- * - Non-input debug text box
- * - Coordinates at cursor w/ non-input debug text box
  * - Better / alternative build method instead of eclipse maintained makefiles
  * - Movable input cursor / implement delete key
+ * - Open / close console with some key
  */
 
 #include <console/Console.h>
