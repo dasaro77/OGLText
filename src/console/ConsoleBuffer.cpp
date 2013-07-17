@@ -55,9 +55,16 @@ void ConsoleBuffer::deleteBackwardFromCurrentLine() {
 
 void ConsoleBuffer::output(GLfloat x, GLfloat y, GLfloat width, GLfloat height) {
   outputer->move(x, y);
-  for(size_t i = 0; i < lines.size(); ++i) {
+
+  // Render all but the active line
+  for(size_t i = 0; i + 1 < lines.size(); ++i) {
     outputer->output(i, lines[i]);
   }
+
+  // Render the active line with a cursor at the end
+  // TODO Allow cursor to be moved w/in the line
+  string currentLineForOutput = *getCurrentLine() + string("_");
+  outputer->output(lines.size() - 1, &currentLineForOutput);
 }
 
 void ConsoleBuffer::addToEndOfCurrentLine(char input) {
