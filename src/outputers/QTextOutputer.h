@@ -22,10 +22,11 @@ private:
 
 public:
 
-  QTextOutputer(GLfloat xBase, GLfloat yBase, GLfloat yDelta);
+  QTextOutputer(GLfloat yDelta);
   ~QTextOutputer() {};
 
   void output(size_t index, string* str);
+  void move(GLfloat xBase, GLfloat yBase);
 
 };
 

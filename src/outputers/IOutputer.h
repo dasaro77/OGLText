@@ -20,7 +20,7 @@ public:
   virtual ~IOutputer() {}
 
   virtual void output(size_t index, string* str)=0;
-
+  virtual void move(GLfloat xBase, GLfloat yBase)=0;
 };
 
 #endif /* IOUTPUTER_H_ */

@@ -5,10 +5,17 @@
  *      Author: drom
  */
 
-#include "console/ConsoleBuffer.h"
+#include <console/ConsoleBuffer.h>
+#include <GL/gl.h>
+#include <outputers/IOutputer.h>
+#include <outputers/QTextOutputer.h>
+#include <cstddef>
+#include <deque>
+#include <new>
+#include <string>
 
-ConsoleBuffer::ConsoleBuffer(IOutputer* outputer, unsigned maxSize) {
-  this->outputer = outputer;
+ConsoleBuffer::ConsoleBuffer(unsigned maxSize) {
+  this->outputer = new QTextOutputer(-20);
   this->maxSize = maxSize;
 }
 
@@ -46,7 +53,8 @@ void ConsoleBuffer::deleteBackwardFromCurrentLine() {
   }
 }
 
-void ConsoleBuffer::output() {
+void ConsoleBuffer::output(GLfloat x, GLfloat y, GLfloat width, GLfloat height) {
+  outputer->move(x, y);
   for(size_t i = 0; i < lines.size(); ++i) {
     outputer->output(i, lines[i]);
   }

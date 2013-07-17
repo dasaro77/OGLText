@@ -8,10 +8,11 @@
 #ifndef CONSOLEBUFFER_H_
 #define CONSOLEBUFFER_H_
 
-#include <string>
+#include <GL/gl.h>
 #include <deque>
+#include <string>
 
-#include "outputers/IOutputer.h"
+class IOutputer;
 
 using std::string;
 using std::deque;
@@ -26,10 +27,10 @@ private:
 
 public:
 
-  ConsoleBuffer(IOutputer* outputer, unsigned maxSize);
+  ConsoleBuffer(unsigned maxSize);
   ~ConsoleBuffer();
 
-  void output();
+  void output(GLfloat x, GLfloat y, GLfloat width, GLfloat height);
   string* getCurrentLine();
   void newLine();
   void deleteForwardFromCurrentLine();
