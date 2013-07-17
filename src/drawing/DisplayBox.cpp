@@ -12,6 +12,10 @@
 
 DisplayBox::DisplayBox(DrawingContext* context) {
   this->x = this->y = this->width = this->height = 0;
+  this->lineWidth = -1;
+  this->lineR = this->lineG = this->lineB = 0;
+  this->drawFill = false;
+  this->fillR = this->fillG = this->fillB = 0;
   this->context = context;
   this->keyHandler = NULL;
 }
@@ -33,9 +37,17 @@ void DisplayBox::setSize(GLfloat width, GLfloat height) {
 void DisplayBox::draw() {
   // Draw border and background of the console
   glPushMatrix();
-  context->setLine(2, 1, 0, 0);
-  context->setFill(0.25, 0, 0);
-  context->drawRectangleFilledWithBorder(x, y, width, height);
+
+  if(lineWidth > 0) {
+    context->setLine(lineWidth, lineR, lineG, lineB);
+    context->drawRectangleUnfilledWithBorder(x, y, width, height);
+  }
+
+  if(drawFill) {
+    context->setFill(fillR, fillG, fillB);
+    context->drawRectangleFilled(x, y, width, height);
+  }
+
   glPopMatrix();
 }
 
@@ -69,6 +81,20 @@ GLfloat DisplayBox::getWidth() {
 
 GLfloat DisplayBox::getHeight() {
   return height;
+}
+
+void DisplayBox::setLine(GLfloat width, GLfloat r, GLfloat g, GLfloat b) {
+  this->lineWidth = width;
+  this->lineR = r;
+  this->lineG = g;
+  this->lineB = b;
+}
+
+void DisplayBox::setFill(GLfloat r, GLfloat g, GLfloat b) {
+  this->drawFill = true;
+  this->fillR = r;
+  this->fillG = g;
+  this->fillB = b;
 }
 
 void DisplayBox::setKeyHandler(IKeyHandler* keyHandler) {

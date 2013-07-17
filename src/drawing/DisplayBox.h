@@ -18,6 +18,13 @@ class DisplayBox {
 private:
 
   GLfloat x, y, width, height;
+
+  GLfloat lineWidth;
+  GLfloat lineR, lineG, lineB;
+
+  bool drawFill;
+  GLfloat fillR, fillG, fillB;
+
   DrawingContext* context;
   IKeyHandler* keyHandler;
 
@@ -35,6 +42,9 @@ public:
   void setSize(GLfloat width, GLfloat height);
   void moveY(GLfloat delta);
   void moveX(GLfloat delta);
+
+  void setLine(GLfloat width, GLfloat r, GLfloat g, GLfloat b);
+  void setFill(GLfloat r, GLfloat g, GLfloat b);
 
   void draw();
   bool handleKey(unsigned char key);

@@ -18,6 +18,10 @@ class DrawingContext;
 Console::Console(DrawingContext* context) : DisplayBox(context) {
   this->buffer = new ConsoleBuffer(11);
   setKeyHandler(new ConsoleKeyHandler(buffer));
+
+  // Default display box stylings
+  setLine(2, 1, 0, 0);
+  setFill(0.25, 0, 0);
 }
 
 Console::~Console() {
