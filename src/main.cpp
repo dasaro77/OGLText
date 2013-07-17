@@ -10,18 +10,24 @@
  */
 
 #include <console/Console.h>
+#include <drawing/DisplayBox.h>
 #include <drawing/DrawingContext.h>
-
+#include <drawing/TextBox.h>
 #include <gl/glut.h>
 #include <GL/gl.h>
+#include <sstream>
+#include <string>
 
-#define WINDOW_WIDTH  500
-#define WINDOW_HEIGHT 250
+#define WINDOW_WIDTH  1024
+#define WINDOW_HEIGHT 760
 
 #define WORLD_MOVE_STEP_SIZE 3
 
+void handleMouseMove(int x, int y);
+
 DrawingContext context;
 Console console(&context);
+TextBox coordinates(&context);
 
 void handleDisplay() {
   // Clear the window
@@ -29,6 +35,7 @@ void handleDisplay() {
   glClear(GL_COLOR_BUFFER_BIT);
 
   console.draw();
+  coordinates.draw();
 
   // Swap buffers (color buffers, makes previous render visible)
   glutSwapBuffers();
@@ -37,7 +44,18 @@ void handleDisplay() {
 void handleKeyboard(unsigned char key, int x, int y) {
 #pragma unused (x, y)
 
-  if(console.handleKey(key)) {
+  if(key == '`' || key == '~') {
+    static bool motionCallbackSet = false;
+    if(motionCallbackSet) {
+      motionCallbackSet = false;
+      glutPassiveMotionFunc(NULL);
+    }
+    else {
+      motionCallbackSet = true;
+      glutPassiveMotionFunc(handleMouseMove);
+    }
+  }
+  else if(console.handleKey(key)) {
     glutPostRedisplay();
   }
 }
@@ -46,9 +64,7 @@ void handleSpecialKeyboard(int key, int x, int y) {
 #pragma unused (x, y)
 
   int modifiers = glutGetModifiers();
-  int desired = GLUT_ACTIVE_SHIFT;
-  int result = modifiers & desired;
-  if(result) {
+  if(modifiers & GLUT_ACTIVE_SHIFT) {
     switch(key) {
       case GLUT_KEY_UP:
         console.moveY(WORLD_MOVE_STEP_SIZE);
@@ -74,6 +90,17 @@ void handleSpecialKeyboard(int key, int x, int y) {
   }
 }
 
+void handleMouse(int button, int state, int x, int y) {
+  handleMouseMove(x, y);
+}
+
+void handleMouseMove(int x, int y) {
+  std::ostringstream msg;
+    msg << "X:" << x << ", Y:" << y;
+
+  coordinates.setText(msg.str());
+  glutPostRedisplay();
+}
 
 /* Note that this results with an origin in the center of the screen.  Not sure that
  * I'm too wild about this so that might change in the future.
@@ -105,6 +132,7 @@ void handleReshape(int width, int height) {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
+  coordinates.setLocation(-width / 2.0 + 2, height / 2.0 - 2);
 }
 
 int main(int argc, char** argv) {
@@ -116,10 +144,14 @@ int main(int argc, char** argv) {
   console.setLocation(-240, 120);
   console.setSize(480, 240);
 
+  coordinates.setLocation(0, 0);
+  coordinates.setSize(150, 30);
+
   glutDisplayFunc(handleDisplay);
   glutKeyboardFunc(handleKeyboard);
   glutSpecialFunc(handleSpecialKeyboard);
   glutReshapeFunc(handleReshape);
+  glutMouseFunc(handleMouse);
 
   glutMainLoop();
 }
