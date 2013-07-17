@@ -9,6 +9,7 @@
 #include "qtext.h"
 
 QTextOutputer::QTextOutputer(GLfloat yDelta) {
+  this->xBase = this->yBase = 0;
   this->yDelta = yDelta;
 }
 

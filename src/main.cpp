@@ -6,7 +6,7 @@
  * - Non-input debug text box
  * - Coordinates at cursor w/ non-input debug text box
  * - Better / alternative build method instead of eclipse maintained makefiles
- * - Input cursor
+ * - Movable input cursor / implement delete key
  */
 
 #include <console/Console.h>

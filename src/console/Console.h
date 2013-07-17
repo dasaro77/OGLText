@@ -8,35 +8,25 @@
 #ifndef CONSOLE_H_
 #define CONSOLE_H_
 
-#include <GL/gl.h>
+#include <drawing/DisplayBox.h>
 
 class ConsoleBuffer;
 class ConsoleKeyHandler;
 class DrawingContext;
 class IOutputer;
 
-class Console {
+class Console : public DisplayBox {
 
 private:
 
-  GLfloat x, y, width, height;
-
-  DrawingContext* context;
   ConsoleBuffer* buffer;
-  ConsoleKeyHandler* keyHandler;
 
 public:
 
   Console(DrawingContext* context);
   virtual ~Console();
 
-  void setLocation(GLfloat x, GLfloat y);
-  void setSize(GLfloat width, GLfloat height);
-  void moveY(GLfloat delta);
-  void moveX(GLfloat delta);
-
   void draw();
-  bool handleKey(unsigned char key);
 
 };
 
