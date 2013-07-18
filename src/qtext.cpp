@@ -29,8 +29,6 @@ void printStrokeString(GLfloat x, GLfloat y, const char* toPrint) {
     GLfloat yild = 20.0;
     GLfloat strokeScale = 0.1f;
 
-    glMatrixMode(GL_MODELVIEW);
-
     glPushMatrix();
     glTranslatef(x, y + 1.25 * yild, 0.0);
     glScalef(strokeScale, strokeScale, strokeScale);

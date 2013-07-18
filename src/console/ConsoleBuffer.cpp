@@ -5,6 +5,7 @@
  *      Author: drom
  */
 
+#include <console/BufferLine.h>
 #include <console/ConsoleBuffer.h>
 #include <GL/gl.h>
 #include <outputers/IOutputer.h>
@@ -15,8 +16,10 @@
 #include <string>
 
 ConsoleBuffer::ConsoleBuffer(unsigned maxSize) {
-  this->outputer = new QTextOutputer(-20);
   this->maxSize = maxSize;
+
+  // Guarantee that at least one line exists
+  newLine();
 }
 
 ConsoleBuffer::~ConsoleBuffer() {
@@ -25,7 +28,7 @@ ConsoleBuffer::~ConsoleBuffer() {
   }
 }
 
-string* ConsoleBuffer::getCurrentLine() {
+BufferLine* ConsoleBuffer::getCurrentLine() {
   if(lines.empty()) {
     newLine();
   }
@@ -34,7 +37,7 @@ string* ConsoleBuffer::getCurrentLine() {
 }
 
 void ConsoleBuffer::newLine() {
-  lines.push_back(new string());
+  lines.push_back(new BufferLine());
 
   if(lines.size() > maxSize) {
     delete lines.front();
@@ -47,26 +50,16 @@ void ConsoleBuffer::deleteForwardFromCurrentLine() {
 }
 
 void ConsoleBuffer::deleteBackwardFromCurrentLine() {
-  string* line = getCurrentLine();
-  if(line->size() > 0) {
-    line->erase(line->size() - 1);
-  }
+  getCurrentLine()->deleteLastChar();
 }
 
 void ConsoleBuffer::output(GLfloat x, GLfloat y, GLfloat width, GLfloat height) {
-  outputer->move(x, y);
-
   // Render all but the active line
-  for(size_t i = 0; i + 1 < lines.size(); ++i) {
-    outputer->output(i, lines[i]);
+  for(size_t i = 0; i < lines.size(); ++i) {
+    lines[i]->draw(x, y - 20*i, i == lines.size() - 1);
   }
-
-  // Render the active line with a cursor at the end
-  // TODO Allow cursor to be moved w/in the line
-  string currentLineForOutput = *getCurrentLine() + string("_");
-  outputer->output(lines.size() - 1, &currentLineForOutput);
 }
 
 void ConsoleBuffer::addToEndOfCurrentLine(char input) {
-  (*getCurrentLine()) += input;
+  getCurrentLine()->append(input);
 }

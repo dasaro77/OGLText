@@ -12,6 +12,8 @@
 #include <deque>
 #include <string>
 
+class BufferLine;
+
 class IOutputer;
 
 using std::string;
@@ -21,9 +23,8 @@ class ConsoleBuffer {
 
 private:
 
-  IOutputer* outputer;
   unsigned maxSize;
-  deque<string*> lines;
+  deque<BufferLine*> lines;
 
 public:
 
@@ -31,7 +32,7 @@ public:
   ~ConsoleBuffer();
 
   void output(GLfloat x, GLfloat y, GLfloat width, GLfloat height);
-  string* getCurrentLine();
+  BufferLine* getCurrentLine();
   void newLine();
   void deleteForwardFromCurrentLine();
   void deleteBackwardFromCurrentLine();
