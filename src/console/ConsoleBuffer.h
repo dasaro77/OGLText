@@ -8,12 +8,12 @@
 #ifndef CONSOLEBUFFER_H_
 #define CONSOLEBUFFER_H_
 
+#include <console/TypeSetMetadata.h>
 #include <GL/gl.h>
 #include <deque>
 #include <string>
 
 class BufferLine;
-
 class IOutputer;
 
 using std::string;
@@ -25,6 +25,7 @@ private:
 
   unsigned maxSize;
   deque<BufferLine*> lines;
+  TypeSetMetadata typeSetMetadata;
 
 public:
 
@@ -37,6 +38,7 @@ public:
   void deleteForwardFromCurrentLine();
   void deleteBackwardFromCurrentLine();
   void addToEndOfCurrentLine(char input);
+  TypeSetMetadata* getTypeSetMetadata();
 
 };
 

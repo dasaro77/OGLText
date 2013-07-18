@@ -6,17 +6,20 @@
 CPP_SRCS += \
 ../src/console/BufferLine.cpp \
 ../src/console/Console.cpp \
-../src/console/ConsoleBuffer.cpp 
+../src/console/ConsoleBuffer.cpp \
+../src/console/TypeSetMetadata.cpp 
 
 OBJS += \
 ./src/console/BufferLine.o \
 ./src/console/Console.o \
-./src/console/ConsoleBuffer.o 
+./src/console/ConsoleBuffer.o \
+./src/console/TypeSetMetadata.o 
 
 CPP_DEPS += \
 ./src/console/BufferLine.d \
 ./src/console/Console.d \
-./src/console/ConsoleBuffer.d 
+./src/console/ConsoleBuffer.d \
+./src/console/TypeSetMetadata.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

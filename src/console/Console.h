@@ -8,7 +8,14 @@
 #ifndef CONSOLE_H_
 #define CONSOLE_H_
 
+#include <console/IAction.h>
 #include <drawing/DisplayBox.h>
+#include <map>
+#include <string>
+#include <utility>
+
+using std::map;
+using std::string;
 
 class ConsoleBuffer;
 class ConsoleKeyHandler;
@@ -20,6 +27,7 @@ class Console : public DisplayBox {
 private:
 
   ConsoleBuffer* buffer;
+  map<string, IAction*> basicLanguage;
 
 public:
 
@@ -27,6 +35,7 @@ public:
   virtual ~Console();
 
   void draw();
+  void execute(string line);
 
 };
 

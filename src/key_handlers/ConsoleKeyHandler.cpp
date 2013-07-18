@@ -5,9 +5,17 @@
  *      Author: drom
  */
 
-#include "ConsoleKeyHandler.h"
+#include <console/BufferLine.h>
+#include <console/Console.h>
+#include <console/ConsoleBuffer.h>
+#include <key_handlers/ConsoleKeyHandler.h>
+#include <cctype>
+#include <cstdlib>
 
-ConsoleKeyHandler::ConsoleKeyHandler(ConsoleBuffer* consoleBuffer) {
+class Console;
+
+ConsoleKeyHandler::ConsoleKeyHandler(Console* console, ConsoleBuffer* consoleBuffer) {
+  this->console = console;
   this->consoleBuffer = consoleBuffer;
 }
 
@@ -21,6 +29,7 @@ bool ConsoleKeyHandler::handleKey(unsigned char key) {
 
   // Return key
   case 13:
+    console->execute(consoleBuffer->getCurrentLine()->getText());
     consoleBuffer->newLine();
     break;
 

@@ -7,13 +7,11 @@
 
 #include <console/BufferLine.h>
 #include <console/ConsoleBuffer.h>
+#include <console/TypeSetMetadata.h>
 #include <GL/gl.h>
-#include <outputers/IOutputer.h>
-#include <outputers/QTextOutputer.h>
 #include <cstddef>
 #include <deque>
 #include <new>
-#include <string>
 
 ConsoleBuffer::ConsoleBuffer(unsigned maxSize) {
   this->maxSize = maxSize;
@@ -56,8 +54,12 @@ void ConsoleBuffer::deleteBackwardFromCurrentLine() {
 void ConsoleBuffer::output(GLfloat x, GLfloat y, GLfloat width, GLfloat height) {
   // Render all but the active line
   for(size_t i = 0; i < lines.size(); ++i) {
-    lines[i]->draw(x, y - 20*i, i == lines.size() - 1);
+    lines[i]->draw(typeSetMetadata, x, y - 20*i, i == lines.size() - 1);
   }
+}
+
+TypeSetMetadata* ConsoleBuffer::getTypeSetMetadata() {
+  return &typeSetMetadata;
 }
 
 void ConsoleBuffer::addToEndOfCurrentLine(char input) {

@@ -11,6 +11,8 @@
 #include <GL/gl.h>
 #include <string>
 
+class TypeSetMetadata;
+
 using std::string;
 
 class BufferLine {
@@ -28,7 +30,7 @@ public:
   BufferLine();
   virtual ~BufferLine();
 
-  void draw(GLfloat x, GLfloat y, bool isCurrent);
+  void draw(TypeSetMetadata tsm, GLfloat x, GLfloat y, bool isCurrent);
 
   void setText(const string& text);
   void setColor(GLfloat r, GLfloat g, GLfloat b);

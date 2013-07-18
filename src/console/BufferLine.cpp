@@ -6,6 +6,7 @@
  */
 
 #include <console/BufferLine.h>
+#include <console/TypeSetMetadata.h>
 #include <GL/freeglut_std.h>
 #include <GL/gl.h>
 #include <string>
@@ -22,16 +23,15 @@ BufferLine::~BufferLine() {
   // TODO Auto-generated destructor stub
 }
 
-void BufferLine::draw(GLfloat x, GLfloat y, bool isCurrent) {
+void BufferLine::draw(TypeSetMetadata tsm, GLfloat x, GLfloat y, bool isCurrent) {
   glColor3f(r, g, b);
   glLineWidth(lineWidth);
 
-  GLfloat yild = 20.0;
-  GLfloat strokeScale = 0.1f;
+  GLfloat strokeScale = tsm.getStrokeScale();
 
   glPushMatrix();
 
-  glTranslatef(x, y + 1.25 * yild, 0.0);
+  glTranslatef(x, y + 1.25 * tsm.getYild(), 0.0);
   glScalef(strokeScale, strokeScale, strokeScale);
 
   const char* s = text.c_str();
