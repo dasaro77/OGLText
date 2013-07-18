@@ -1,3 +1,10 @@
+/* Really, really quick (q) and dirty implementation of text rendering in
+ * OpenGL.  Very unconfigurable, but it's super easy to work with quickly!
+ * Anything that uses this should really be made to use something more
+ * robust (e.g., various fonts, stylings, typeset metadata, etc) in the
+ * future.
+ */
+
 #include <stdio.h>
 #include <string.h>
 
