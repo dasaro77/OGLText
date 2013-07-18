@@ -2,9 +2,16 @@
  * TODO list
  * - Line wrapping on current input buffer
  * - Response lines for each line of input after CR
- * - Better / alternative build method instead of eclipse maintained makefiles
+ * - Better / alternative build method instead of eclipse maintained makefiles?
  * - Movable input cursor / implement delete key
- * - Open / close console with some key
+ * - Add toggle button for console
+ * - Up arrow should cycle the previous buffer lines into the current line
+ * - Auto-complete on commands for tab key?
+ * - Implement concept of focus via mouse location in order to route to appropriate key handlers
+ * - Add FPS to coordinates box
+ * - Add window dimensions to coordinates box
+ * - Add toggle button for coordinates box
+ * - Build scene graph object to better manage visual objects
  */
 
 #include <console/Console.h>
