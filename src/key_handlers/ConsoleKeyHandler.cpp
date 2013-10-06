@@ -44,7 +44,7 @@ bool ConsoleKeyHandler::handleKey(unsigned char key) {
     break;
 
   default:
-    if(isalnum(key) || key == ' ') {
+    if(32 <= key && key < 127) {
       consoleBuffer->addToEndOfCurrentLine(key);
       break;
     }
