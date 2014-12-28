@@ -52,6 +52,7 @@ public:
 protected:
 
   void setKeyHandler(IKeyHandler* keyHandler);
+  DrawingContext* getContext();
 
 };
 

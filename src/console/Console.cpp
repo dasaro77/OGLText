@@ -7,9 +7,11 @@
 
 #include <console/Console.h>
 #include <console/ConsoleBuffer.h>
+#include <console/IAction.h>
 #include <console/SimpleSetAction.h>
 #include <console/TypeSetMetadata.h>
 #include <drawing/DisplayBox.h>
+#include <drawing/DrawingContext.h>
 #include <GL/gl.h>
 #include <key_handlers/ConsoleKeyHandler.h>
 #include <key_handlers/IKeyHandler.h>
@@ -35,9 +37,9 @@ Console::Console(DrawingContext* context) : DisplayBox(context) {
       buffer->getTypeSetMetadata(),
       &TypeSetMetadata::setYild);
 
-  basicLanguage["setStrokeScale"] = new SimpleSetAction<TypeSetMetadata>(
+  basicLanguage["strokeScale"] = new SimpleSetAction<TypeSetMetadata>(
         buffer->getTypeSetMetadata(),
-        &TypeSetMetadata::setStrokeScale);
+        &TypeSetMetadata::setFontSize);
 }
 
 Console::~Console() {
@@ -51,7 +53,9 @@ void Console::draw() {
   glPushMatrix();
 
   // TODO Deltas are very much magic numbers :-(  not sure why this is necessary yet
-  buffer->output(getX() + 15, getY() - 50, getWidth() - 15, getHeight() + 50);
+  getContext()->drawRectangleUnfilledWithBorder(getX() + 15, getY() - 50, getWidth() - 15, getHeight() - 50);
+//  buffer->output(getX() + 15, getY() - 50, getWidth() - 15, getHeight() - 50);
+  buffer->output(getX(), getY(), getWidth() - 15, getHeight() - 50);
 
   glPopMatrix();
 }

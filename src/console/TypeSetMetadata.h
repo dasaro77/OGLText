@@ -18,17 +18,20 @@ class TypeSetMetadata {
 private:
 
   GLfloat yild;
-  GLfloat strokeScale;
+  GLfloat fontSize;
 
 public:
 
   TypeSetMetadata();
   virtual ~TypeSetMetadata();
 
-  GLfloat getStrokeScale() const;
-  void setStrokeScale(string strokeScale);
+  GLfloat getFontSize() const;
+  void setFontSize(string strokeScale);
   GLfloat getYild() const;
   void setYild(string yild);
+
+  GLfloat getLineHeight();
+  GLfloat getScaleFactor();
 
 };
 

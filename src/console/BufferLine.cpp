@@ -23,16 +23,19 @@ BufferLine::~BufferLine() {
   // TODO Auto-generated destructor stub
 }
 
-void BufferLine::draw(TypeSetMetadata tsm, GLfloat x, GLfloat y, bool isCurrent) {
+void BufferLine::draw(TypeSetMetadata& tsm, GLfloat x, GLfloat y, bool isCurrent) {
   glColor3f(r, g, b);
   glLineWidth(lineWidth);
 
-  GLfloat strokeScale = tsm.getStrokeScale();
+  GLfloat strokeScale = tsm.getScaleFactor();
+  GLfloat lineHeight = tsm.getLineHeight();
 
   glPushMatrix();
 
-  glTranslatef(x, y + 1.25 * tsm.getYild(), 0.0);
-  glScalef(strokeScale, strokeScale, strokeScale);
+  //ORIG:  glTranslatef(x, y + 1.25 * tsm.getYild(), 0.0);
+  glTranslatef(x, y + 1.25 * lineHeight, 0.0);
+//  glTranslatef(x, y, 0.0);
+  glScalef(strokeScale, strokeScale, 1);
 
   const char* s = text.c_str();
   while (*s) {

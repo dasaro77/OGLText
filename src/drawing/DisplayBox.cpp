@@ -100,3 +100,7 @@ void DisplayBox::setFill(GLfloat r, GLfloat g, GLfloat b) {
 void DisplayBox::setKeyHandler(IKeyHandler* keyHandler) {
   this->keyHandler = keyHandler;
 }
+
+DrawingContext* DisplayBox::getContext() {
+  return context;
+}

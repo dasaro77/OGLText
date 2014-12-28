@@ -54,7 +54,8 @@ void ConsoleBuffer::deleteBackwardFromCurrentLine() {
 void ConsoleBuffer::output(GLfloat x, GLfloat y, GLfloat width, GLfloat height) {
   // Render all but the active line
   for(size_t i = 0; i < lines.size(); ++i) {
-    lines[i]->draw(typeSetMetadata, x, y - 20*i, i == lines.size() - 1);
+//    lines[i]->draw(typeSetMetadata, x, y - 20*i, i == lines.size() - 1);
+    lines[i]->draw(typeSetMetadata, x, y - typeSetMetadata.getLineHeight()*i, i == lines.size() - 1);
   }
 }
 
