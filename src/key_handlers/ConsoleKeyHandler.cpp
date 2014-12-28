@@ -30,7 +30,7 @@ bool ConsoleKeyHandler::handleKey(unsigned char key) {
   // Return key
   case 13:
     console->execute(consoleBuffer->getCurrentLine()->getText());
-    consoleBuffer->newLine();
+    console->newLine();
     break;
 
   // Backspace

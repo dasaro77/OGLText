@@ -27,6 +27,8 @@ private:
 
   ConsoleBuffer* buffer;
   map<string, IAction*> basicLanguage;
+  int loadedBufferLine;
+  string tempCurrentLineText;
 
 public:
 
@@ -35,6 +37,13 @@ public:
 
   void draw();
   void execute(const string& line);
+  void newLine();
+  void loadOlderBufferLine();
+  void loadNewerBufferLine();
+
+private :
+
+  bool loadBufferLine(unsigned int index);
 
 };
 

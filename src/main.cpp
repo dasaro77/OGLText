@@ -89,10 +89,32 @@ void handleSpecialKeyboard(int key, int x, int y) {
 
       default:
         return;
-      }
-
-      glutPostRedisplay();
+    }
   }
+  else {
+    switch(key) {
+      case GLUT_KEY_UP:
+        console.loadOlderBufferLine();
+        break;
+
+      case GLUT_KEY_DOWN:
+        console.loadNewerBufferLine();
+        break;
+
+      case GLUT_KEY_LEFT:
+        // TODO Move cursor
+        break;
+
+      case GLUT_KEY_RIGHT:
+        // TODO Move cursor
+        break;
+
+      default:
+        return;
+    }
+  }
+
+  glutPostRedisplay();
 }
 
 void handleMouse(int button, int state, int x, int y) {

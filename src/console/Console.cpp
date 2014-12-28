@@ -24,6 +24,8 @@ class DrawingContext;
 
 Console::Console(DrawingContext* context) : DisplayBox(context) {
   this->buffer = new ConsoleBuffer(11);
+  this->loadedBufferLine = -1;
+
   setKeyHandler(new ConsoleKeyHandler(this, buffer));
 
   // Default display box stylings
@@ -77,4 +79,44 @@ void Console::execute(const string& line) {
       action->execute(param);
     }
   }
+}
+
+void Console::newLine() {
+  this->loadedBufferLine = -1;
+  buffer->newLine();
+}
+
+void Console::loadOlderBufferLine() {
+  if(loadedBufferLine < 0) {
+    this->tempCurrentLineText = buffer->getCurrentLine()->getText();
+    loadedBufferLine = buffer->size() - 1;
+  }
+
+  loadBufferLine(--loadedBufferLine) || ++loadedBufferLine;
+}
+
+void Console::loadNewerBufferLine() {
+  if(loadedBufferLine < 0) {
+    // Can't move to a newer buffer if we've never navigated back at all
+    return;
+  }
+
+  loadBufferLine(++loadedBufferLine) || --loadedBufferLine;
+}
+
+bool Console::loadBufferLine(unsigned int index) {
+  if(index == buffer->size() - 1) {
+    // When navigating back to the current line, reset buffer navigator completely
+    buffer->getCurrentLine()->setText(tempCurrentLineText);
+    loadedBufferLine = -1;
+    return false;
+  }
+
+  BufferLine* line = buffer->getLine(index);
+  if(line != NULL) {
+    buffer->getCurrentLine()->setText(line->getText());
+    return true;
+  }
+
+  return false;
 }

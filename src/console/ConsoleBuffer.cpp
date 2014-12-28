@@ -5,13 +5,7 @@
  *      Author: drom
  */
 
-#include <console/BufferLine.h>
 #include <console/ConsoleBuffer.h>
-#include <console/TypeSetMetadata.h>
-#include <GL/gl.h>
-#include <cstddef>
-#include <deque>
-#include <new>
 
 ConsoleBuffer::ConsoleBuffer(unsigned maxSize) {
   this->maxSize = maxSize;
@@ -26,12 +20,24 @@ ConsoleBuffer::~ConsoleBuffer() {
   }
 }
 
+unsigned int ConsoleBuffer::size() {
+  return lines.size();
+}
+
 BufferLine* ConsoleBuffer::getCurrentLine() {
   if(lines.empty()) {
     newLine();
   }
 
   return lines.back();
+}
+
+BufferLine* ConsoleBuffer::getLine(unsigned int index) {
+  if(index >= lines.size()) {
+    return NULL;
+  }
+
+  return lines[index];
 }
 
 void ConsoleBuffer::newLine() {

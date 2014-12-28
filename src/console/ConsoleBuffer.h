@@ -9,22 +9,16 @@
 #define CONSOLEBUFFER_H_
 
 #include <console/TypeSetMetadata.h>
+#include <console/BufferLine.h>
 #include <GL/gl.h>
 #include <deque>
-#include <string>
-
-class BufferLine;
-class IOutputer;
-
-using std::string;
-using std::deque;
 
 class ConsoleBuffer {
 
 private:
 
   unsigned maxSize;
-  deque<BufferLine*> lines;
+  std::deque<BufferLine*> lines;
   TypeSetMetadata typeSetMetadata;
 
 public:
@@ -33,7 +27,9 @@ public:
   ~ConsoleBuffer();
 
   void output(GLfloat x, GLfloat y, GLfloat width, GLfloat height);
+  unsigned int size();
   BufferLine* getCurrentLine();
+  BufferLine* getLine(unsigned int index);
   void newLine();
   void deleteForwardFromCurrentLine();
   void deleteBackwardFromCurrentLine();
