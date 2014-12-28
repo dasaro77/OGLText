@@ -35,7 +35,7 @@ Console::Console(DrawingContext* context) : DisplayBox(context) {
       buffer->getTypeSetMetadata(),
       &TypeSetMetadata::setYild);
 
-  basicLanguage["setStrokeScale"] = new SimpleSetAction<TypeSetMetadata>(
+  basicLanguage["strokeScale"] = new SimpleSetAction<TypeSetMetadata>(
       buffer->getTypeSetMetadata(),
       &TypeSetMetadata::setStrokeScale);
 
