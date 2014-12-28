@@ -11,8 +11,6 @@
 #include <console/IAction.h>
 #include <string>
 
-using std::string;
-
 template <class C>
 class SimpleSetAction : public IAction {
 

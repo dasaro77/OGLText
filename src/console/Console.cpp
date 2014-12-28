@@ -60,7 +60,7 @@ void Console::draw() {
   glPopMatrix();
 }
 
-void Console::execute(string line) {
+void Console::execute(const string& line) {
   vector<string> parts = StringUtil::split(line, ' ');
   if(parts.size() > 0) {
     string command = parts[0];

@@ -15,7 +15,6 @@
 #include <utility>
 
 using std::map;
-using std::string;
 
 class ConsoleBuffer;
 class ConsoleKeyHandler;
@@ -35,7 +34,7 @@ public:
   virtual ~Console();
 
   void draw();
-  void execute(string line);
+  void execute(const string& line);
 
 };
 
