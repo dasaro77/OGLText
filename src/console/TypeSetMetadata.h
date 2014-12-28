@@ -29,6 +29,7 @@ public:
   void setStrokeScale(string strokeScale);
   GLfloat getYild() const;
   void setYild(string yild);
+  void reset();
 
 };
 

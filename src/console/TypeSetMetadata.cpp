@@ -6,14 +6,14 @@
  */
 
 #include <console/TypeSetMetadata.h>
+#include <stdlib.h>
 #include <GL/gl.h>
 #include <string>
 
 using std::string;
 
 TypeSetMetadata::TypeSetMetadata() {
-  this->yild = 20;
-  this->strokeScale = 0.1;
+  reset();
 }
 
 TypeSetMetadata::~TypeSetMetadata() {
@@ -36,4 +36,9 @@ GLfloat TypeSetMetadata::getYild() const {
 void TypeSetMetadata::setYild(string yild) {
   GLfloat value = atof(yild.c_str());
   this->yild = value;
+}
+
+void TypeSetMetadata::reset() {
+  this->yild = 20;
+  this->strokeScale = 0.1;
 }
