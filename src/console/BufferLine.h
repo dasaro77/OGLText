@@ -23,7 +23,6 @@ private:
 
   string text;
   Justification justification;
-  GLfloat r, g, b, lineWidth;
 
 public:
 

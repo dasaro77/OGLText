@@ -12,9 +12,6 @@
 #include <string>
 
 BufferLine::BufferLine() {
-  this->lineWidth = 1;
-  this->g = 1;
-  this->r = this->b = 0;
   this->justification = JUST_LEFT;
   this->text = "";
 }
@@ -24,8 +21,8 @@ BufferLine::~BufferLine() {
 }
 
 void BufferLine::draw(TypeSetMetadata tsm, GLfloat x, GLfloat y, bool isCurrent) {
-  glColor3f(r, g, b);
-  glLineWidth(lineWidth);
+  glColor3f(tsm.getRed(), tsm.getGreen(), tsm.getBlue());
+  glLineWidth(tsm.getLineWidth());
 
   GLfloat strokeScale = tsm.getStrokeScale();
 
@@ -50,16 +47,6 @@ void BufferLine::draw(TypeSetMetadata tsm, GLfloat x, GLfloat y, bool isCurrent)
 
 void BufferLine::setText(const string& text) {
   this->text = text;
-}
-
-void BufferLine::setColor(GLfloat r, GLfloat g, GLfloat b) {
-  this->r = r;
-  this->g = g;
-  this->b = b;
-}
-
-void BufferLine::setLineWidth(GLfloat lineWidth) {
-  this->lineWidth = lineWidth;
 }
 
 void BufferLine::justifyLeft() {

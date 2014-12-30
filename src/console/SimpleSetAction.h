@@ -17,7 +17,7 @@ class SimpleSetAction : public IAction {
 private:
 
   C* instance;
-  void (C::*funcSingleParam)(string);
+  void (C::*funcSingleParam)(const string&);
   void (C::*funcAction)();
 
 public:
@@ -28,7 +28,7 @@ public:
     this->funcAction = func;
   }
 
-  SimpleSetAction(C* instance, void (C::*func)(string)) {
+  SimpleSetAction(C* instance, void (C::*func)(const string&)) {
     this->instance = instance;
     this->funcSingleParam = func;
     this->funcAction = NULL;

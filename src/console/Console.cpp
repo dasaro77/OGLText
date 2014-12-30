@@ -41,6 +41,22 @@ Console::Console(DrawingContext* context) : DisplayBox(context) {
       buffer->getTypeSetMetadata(),
       &TypeSetMetadata::setStrokeScale);
 
+  basicLanguage["red"] = new SimpleSetAction<TypeSetMetadata>(
+        buffer->getTypeSetMetadata(),
+        &TypeSetMetadata::setRed);
+
+  basicLanguage["green"] = new SimpleSetAction<TypeSetMetadata>(
+        buffer->getTypeSetMetadata(),
+        &TypeSetMetadata::setGreen);
+
+  basicLanguage["blue"] = new SimpleSetAction<TypeSetMetadata>(
+        buffer->getTypeSetMetadata(),
+        &TypeSetMetadata::setBlue);
+
+  basicLanguage["lineWidth"] = new SimpleSetAction<TypeSetMetadata>(
+        buffer->getTypeSetMetadata(),
+        &TypeSetMetadata::setLineWidth);
+
   basicLanguage["reset"] = new SimpleSetAction<TypeSetMetadata>(
       buffer->getTypeSetMetadata(),
       &TypeSetMetadata::reset);
